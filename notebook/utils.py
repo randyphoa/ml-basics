@@ -48,8 +48,8 @@ def get_churn_prediction_data(num_samples=1000):
         }
     )
     df["Churn"] = (
-        (df["CreditScore"] > 600) & (df["Tenure"] < 5) & (df["Balance"] < 50000)
-    ).astype(int)
+       np.round( 1/(1 + np.exp(-(-0.15*df["Age"] + 1.5*df["HasCrCard"]+5)))
+    ).astype(int))
     idx = df.sample(frac=0.3, random_state=12345).index
     df.iloc[idx, -1] = 1-df.iloc[idx, -1]
     return df
@@ -155,10 +155,10 @@ def get_cltv_data(num_samples=1000):
         }
     )
     df["CLTV"] = (
-        df["CreditScore"]*np.random.normal(0.6, 0.2) + df["EstimatedSalary"]*np.random.normal(0.02, 0.001) +df["HasCrCard"]*np.random.normal(0.1, 0.2) + np.random.normal(0.6, 0.1)*df["Transaction_Source_M_Count"]+np.random.normal(0.2, 0.05, size=num_samples)
+        df["CreditScore"] +100*df["HasCrCard"] + 100*df["Transaction_Source_M_Count"]
     ).astype(int)
 
-    idx = df.sample(frac=0.3, random_state=12345).index
+    idx = df.sample(frac=0.05, random_state=12345).index
     df.iloc[idx, -1] = np.random.randint(600, 2000, size=len(idx))
 
     return df
@@ -436,4 +436,6 @@ def get_product_recommendation_data(num_samples=1000):
     norm_rating_latent_matrix  =((((rating_latent_matrix - np.min(rating_latent_matrix))*(5-1))/(np.max(rating_latent_matrix) - np.min(rating_latent_matrix))) + 1).astype(int)
     df = pd.DataFrame(list(product(users, items)), columns=['user', 'item'])
     df["rating"] = norm_rating_latent_matrix.flatten()
+    idx = df.sample(frac=0.25, random_state=12345).index
+    df = df.drop(idx, inplace=False)
     return df
