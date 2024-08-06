@@ -4,24 +4,23 @@ import numpy as np
 import pandas as pd
 from itertools import product
 
-rand = np.random.RandomState(12345)
-
 
 def get_product_propensity_data(num_samples=1000):
+    rand = np.random.RandomState(12345)
     df = pd.DataFrame(
         {
             "Customer_ID": np.arange(1, num_samples + 1),
-            "Age": np.random.randint(18, 70, size=num_samples),
-            "Gender": np.random.choice(["M", "F"], size=num_samples),
-            "Credit_Limit": np.random.randint(20000, 150000, size=num_samples), #["M", "A", "D", "V", "P", "U"]
-            "Transaction_Source_M_Count": np.random.randint(0, 2, size=num_samples),
-            "Transaction_Source_A_Count": np.random.randint(0, 5, size=num_samples),
-            "Transaction_Source_D_Count": np.random.randint(0, 2, size=num_samples),
-            "Transaction_Source_V_Count": np.random.randint(0, 2, size=num_samples),
-            "Transaction_Source_P_Count": np.random.randint(0, 2, size=num_samples),
-            "Transaction_Source_U_Count": np.random.randint(0, 2, size=num_samples),
-            "Avg_Transaction_Value": np.random.uniform(20, 500, size=num_samples),
-            "Customer_Segment": np.random.randint(0, 3, size=num_samples),
+            "Age": rand.randint(18, 70, size=num_samples),
+            "Gender": rand.choice(["M", "F"], size=num_samples),
+            "Credit_Limit": rand.randint(20000, 150000, size=num_samples), #["M", "A", "D", "V", "P", "U"]
+            "Transaction_Source_M_Count": rand.randint(0, 2, size=num_samples),
+            "Transaction_Source_A_Count": rand.randint(0, 5, size=num_samples),
+            "Transaction_Source_D_Count": rand.randint(0, 2, size=num_samples),
+            "Transaction_Source_V_Count": rand.randint(0, 2, size=num_samples),
+            "Transaction_Source_P_Count": rand.randint(0, 2, size=num_samples),
+            "Transaction_Source_U_Count": rand.randint(0, 2, size=num_samples),
+            "Avg_Transaction_Value": rand.uniform(20, 500, size=num_samples),
+            "Customer_Segment": rand.randint(0, 3, size=num_samples),
         }
     )
     df["Purchase"] = (
@@ -33,18 +32,19 @@ def get_product_propensity_data(num_samples=1000):
 
 
 def get_churn_prediction_data(num_samples=1000):
+    rand = np.random.RandomState(12345)
     df = pd.DataFrame(
         {
             "Customer_ID": np.arange(1, num_samples + 1),
-            "Age": np.random.randint(18, 70, size=num_samples),
-            "Gender": np.random.choice(["M", "F"], size=num_samples),
-            "CreditScore": np.random.randint(300, 850, size=num_samples),
-            "Tenure": np.random.randint(0, 10, size=num_samples),
-            "Balance": np.random.uniform(0, 200000, size=num_samples),
-            "NumOfProducts": np.random.randint(1, 7, size=num_samples),
-            "HasCrCard": np.random.choice([0, 1], size=num_samples),
-            # "IsActiveMember": np.random.choice([0, 1], size=num_samples),
-            "EstimatedSalary": np.random.uniform(20000, 150000, size=num_samples),
+            "Age": rand.randint(18, 70, size=num_samples),
+            "Gender": rand.choice(["M", "F"], size=num_samples),
+            "CreditScore": rand.randint(300, 850, size=num_samples),
+            "Tenure": rand.randint(0, 10, size=num_samples),
+            "Balance": rand.uniform(0, 200000, size=num_samples),
+            "NumOfProducts": rand.randint(1, 7, size=num_samples),
+            "HasCrCard": rand.choice([0, 1], size=num_samples),
+            # "IsActiveMember": rand.choice([0, 1], size=num_samples),
+            "EstimatedSalary": rand.uniform(20000, 150000, size=num_samples),
         }
     )
     df["Churn"] = (
@@ -56,16 +56,17 @@ def get_churn_prediction_data(num_samples=1000):
 
 
 def get_cltv_data(num_samples=1000):
+    rand = np.random.RandomState(12345)
     df = pd.DataFrame(
         {
             "Customer_ID": np.arange(1, num_samples + 1),
-            "Age": np.random.randint(18, 70, size=num_samples),
-            "Gender": np.random.choice(["M", "F"], size=num_samples),
-            "CreditScore": np.random.randint(300, 850, size=num_samples),
-            "Tenure": np.random.randint(0, 10, size=num_samples),
-            "Balance": np.random.uniform(0, 200000, size=num_samples),
-            "NumOfProducts": np.random.randint(1, 7, size=num_samples),
-            "Country": np.random.choice([
+            "Age": rand.randint(18, 70, size=num_samples),
+            "Gender": rand.choice(["M", "F"], size=num_samples),
+            "CreditScore": rand.randint(300, 850, size=num_samples),
+            "Tenure": rand.randint(0, 10, size=num_samples),
+            "Balance": rand.uniform(0, 200000, size=num_samples),
+            "NumOfProducts": rand.randint(1, 7, size=num_samples),
+            "Country": rand.choice([
                                         "THA",
                                         "TH",
                                         "NL",
@@ -143,15 +144,15 @@ def get_cltv_data(num_samples=1000):
                                         "NO",
                                         "BG",
             ], size=num_samples),
-            "HasCrCard": np.random.choice([0, 1], size=num_samples),
-            "Transaction_Source_M_Count": np.random.randint(0, 2, size=num_samples),
-            "Transaction_Source_A_Count": np.random.randint(0, 5, size=num_samples),
-            "Transaction_Source_D_Count": np.random.randint(0, 2, size=num_samples),
-            "Transaction_Source_V_Count": np.random.randint(0, 2, size=num_samples),
-            "Transaction_Source_P_Count": np.random.randint(0, 2, size=num_samples),
-            "Transaction_Source_U_Count": np.random.randint(0, 2, size=num_samples),
-            "Avg_Transaction_Value": np.random.uniform(20, 500, size=num_samples),
-            "EstimatedSalary": np.random.uniform(20000, 150000, size=num_samples)
+            "HasCrCard": rand.choice([0, 1], size=num_samples),
+            "Transaction_Source_M_Count": rand.randint(0, 2, size=num_samples),
+            "Transaction_Source_A_Count": rand.randint(0, 5, size=num_samples),
+            "Transaction_Source_D_Count": rand.randint(0, 2, size=num_samples),
+            "Transaction_Source_V_Count": rand.randint(0, 2, size=num_samples),
+            "Transaction_Source_P_Count": rand.randint(0, 2, size=num_samples),
+            "Transaction_Source_U_Count": rand.randint(0, 2, size=num_samples),
+            "Avg_Transaction_Value": rand.uniform(20, 500, size=num_samples),
+            "EstimatedSalary": rand.uniform(20000, 150000, size=num_samples)
         }
     )
     df["CLTV"] = (
@@ -159,13 +160,14 @@ def get_cltv_data(num_samples=1000):
     ).astype(int)
 
     idx = df.sample(frac=0.05, random_state=12345).index
-    df.iloc[idx, -1] = np.random.randint(600, 2000, size=len(idx))
+    df.iloc[idx, -1] = rand.randint(600, 2000, size=len(idx))
 
     return df
 
 
 
 def get_customer_segmentation_data(num_samples=1000):
+    rand = np.random.RandomState(12345)
     items = [
                                         "THA",
                                         "TH",
@@ -246,63 +248,64 @@ def get_customer_segmentation_data(num_samples=1000):
     clus1 = pd.DataFrame(
         {
             "Customer_ID": np.arange(1, num_samples + 1),
-            "Age": np.random.randint(60, 70, size=num_samples), #old
-            "Gender": np.random.choice(["M", "F"], size=num_samples, p=[0.9, 0.1]), #men
-            "CreditScore": np.random.randint(750, 850, size=num_samples), #high credit score
-            "Tenure": np.random.randint(9, 10, size=num_samples), # long tenure
-            "Balance": np.random.uniform(190000, 200000, size=num_samples),#large
-            "NumOfProducts": np.random.randint(5, 7, size=num_samples), # has multiple products
-            "Education": np.random.randint(6, 7, size=num_samples), #very educated
-            "Country": np.random.choice(items, size=num_samples),
-            "HasCrCard": np.random.choice([0, 1], size=num_samples, p=[0.1, 0.9]), # has cc
-            "Transaction_Count": np.random.randint(4, 5, size=num_samples),
-            "Avg_Transaction_Value": np.random.uniform(400, 500, size=num_samples),
-            "EstimatedSalary": np.random.uniform(140000, 150000, size=num_samples) #high
+            "Age": rand.randint(60, 70, size=num_samples), #old
+            "Gender": rand.choice(["M", "F"], size=num_samples, p=[0.9, 0.1]), #men
+            "CreditScore": rand.randint(750, 850, size=num_samples), #high credit score
+            "Tenure": rand.randint(9, 10, size=num_samples), # long tenure
+            "Balance": rand.uniform(190000, 200000, size=num_samples),#large
+            "NumOfProducts": rand.randint(5, 7, size=num_samples), # has multiple products
+            "Education": rand.randint(6, 7, size=num_samples), #very educated
+            # "Country": rand.choice(items, size=num_samples),
+            "HasCrCard": rand.choice([0, 1], size=num_samples, p=[0.1, 0.9]), # has cc
+            "Transaction_Count": rand.randint(4, 5, size=num_samples),
+            "Avg_Transaction_Value": rand.uniform(400, 500, size=num_samples),
+            "EstimatedSalary": rand.uniform(140000, 150000, size=num_samples) #high
         }
     )
 
     clus2 = pd.DataFrame(
         {
             "Customer_ID": np.arange(1, num_samples + 1),
-            "Age": np.random.randint(40, 55, size=num_samples), #middle aged
-            "Gender": np.random.choice(["M", "F"], size=num_samples, p=[0.1, 0.9]), #women
-            "CreditScore": np.random.randint(800, 850, size=num_samples), #high credit score
-            "Tenure": np.random.randint(5, 7, size=num_samples), #mid-long tenure
-            "Balance": np.random.uniform(100000, 150000, size=num_samples), #middle range
-            "NumOfProducts": np.random.randint(3, 5, size=num_samples),
-            "Education": np.random.randint(4, 7, size=num_samples),
-            "Country": np.random.choice(items, size=num_samples), #across all countries
-            "HasCrCard": np.random.choice([0, 1], size=num_samples), 
-            "Transaction_Count": np.random.randint(4, 5, size=num_samples), #lots of transaction
-            "Avg_Transaction_Value": np.random.uniform(100, 300, size=num_samples),#middle range transactions
-            "EstimatedSalary": np.random.uniform(100000, 150000, size=num_samples) #middle range salary
+            "Age": rand.randint(40, 55, size=num_samples), #middle aged
+            "Gender": rand.choice(["M", "F"], size=num_samples, p=[0.1, 0.9]), #women
+            "CreditScore": rand.randint(800, 850, size=num_samples), #high credit score
+            "Tenure": rand.randint(5, 7, size=num_samples), #mid-long tenure
+            "Balance": rand.uniform(100000, 150000, size=num_samples), #middle range
+            "NumOfProducts": rand.randint(1, 2, size=num_samples),
+            "Education": rand.randint(4, 7, size=num_samples),
+            # "Country": rand.choice(items, size=num_samples), #across all countries
+            "HasCrCard": rand.choice([0, 1], size=num_samples), 
+            "Transaction_Count": rand.randint(4, 5, size=num_samples), #lots of transaction
+            "Avg_Transaction_Value": rand.uniform(100, 300, size=num_samples),#middle range transactions
+            "EstimatedSalary": rand.uniform(100000, 150000, size=num_samples) #middle range salary
         }
     )
 
     clus3 = pd.DataFrame(
         {
             "Customer_ID": np.arange(1, num_samples + 1),
-            "Age": np.random.randint(18, 25, size=num_samples),#young
-            "Gender": np.random.choice(["M", "F"], size=num_samples), #men & women
-            "CreditScore": np.random.randint(300, 400, size=num_samples), #low
-            "Tenure": np.random.randint(0, 2, size=num_samples), #short
-            "Balance": np.random.uniform(0, 10000, size=num_samples), #low
-            "NumOfProducts": np.random.randint(1, 2, size=num_samples), #few
-            "Education": np.random.randint(1, 3, size=num_samples),
-            "Country": np.random.choice(items, size=num_samples),#all
-            "HasCrCard": np.random.choice([0, 1], size=num_samples, p=[0.9, 0.1]),#lower GDP countries
-            "Transaction_Count": np.random.randint(1, 2, size=num_samples), #few
-            "Avg_Transaction_Value": np.random.uniform(20, 50, size=num_samples), #low
-            "EstimatedSalary": np.random.uniform(20000, 50000, size=num_samples)
+            "Age": rand.randint(18, 25, size=num_samples),#young
+            "Gender": rand.choice(["M", "F"], size=num_samples), #men & women
+            "CreditScore": rand.randint(300, 400, size=num_samples), #low
+            "Tenure": rand.randint(0, 2, size=num_samples), #short
+            "Balance": rand.uniform(0, 10000, size=num_samples), #low
+            "NumOfProducts": rand.randint(1, 2, size=num_samples), #few
+            "Education": rand.randint(1, 3, size=num_samples),
+            # "Country": rand.choice(items, size=num_samples),#all
+            "HasCrCard": rand.choice([0, 1], size=num_samples, p=[0.9, 0.1]),#lower GDP countries
+            "Transaction_Count": rand.randint(1, 2, size=num_samples), #few
+            "Avg_Transaction_Value": rand.uniform(20, 50, size=num_samples), #low
+            "EstimatedSalary": rand.uniform(20000, 50000, size=num_samples)
         }
     )
 
-    df = pd.concat([clus1, clus2, clus3], axis=0).sample(frac=1)
+    df = pd.concat([clus1, clus2, clus3], axis=0).sample(frac=1, random_state=12345)
     
     return df
 
 
 def get_product_recommendation_data(num_samples=1000):
+    rand = np.random.RandomState(12345)
     users = np.arange(1, num_samples + 1)
     items = [
                 'MSPP02',
@@ -430,8 +433,8 @@ def get_product_recommendation_data(num_samples=1000):
                 'VACM13',
                 'VSPP18',
             ]
-    user_latent_matrix = np.random.rand(len(users), 5)
-    item_latent_matrix = np.random.rand(len(items), 5)
+    user_latent_matrix = rand.rand(len(users), 5)
+    item_latent_matrix = rand.rand(len(items), 5)
     rating_latent_matrix = np.dot(user_latent_matrix, item_latent_matrix.T)
     norm_rating_latent_matrix  =((((rating_latent_matrix - np.min(rating_latent_matrix))*(5-1))/(np.max(rating_latent_matrix) - np.min(rating_latent_matrix))) + 1).astype(int)
     df = pd.DataFrame(list(product(users, items)), columns=['user', 'item'])
