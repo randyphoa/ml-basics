@@ -249,14 +249,17 @@ def get_customer_segmentation_data(num_samples=1000):
         {
             "Customer_ID": np.arange(1, num_samples + 1),
             "Age": rand.randint(60, 70, size=num_samples), #old
-            "Gender": rand.choice(["M", "F"], size=num_samples, p=[0.9, 0.1]), #men
+            "Gender": rand.choice(["M", "F"], size=num_samples, p=[0.5, 0.5]),
             "CreditScore": rand.randint(750, 850, size=num_samples), #high credit score
             "Tenure": rand.randint(9, 10, size=num_samples), # long tenure
             "Balance": rand.uniform(190000, 200000, size=num_samples),#large
             "NumOfProducts": rand.randint(5, 7, size=num_samples), # has multiple products
             "Education": rand.randint(6, 7, size=num_samples), #very educated
-            # "Country": rand.choice(items, size=num_samples),
-            "HasCrCard": rand.choice([0, 1], size=num_samples, p=[0.1, 0.9]), # has cc
+            "HasTravelCard": rand.choice([0, 1], size=num_samples, p=[0.1, 0.9]), # has cc
+            "HasCashBackCard": rand.choice([0, 1], size=num_samples, p=[0.5, 0.5]),
+            "HasPointsCard": rand.choice([0, 1], size=num_samples, p=[0.1, 0.9]),
+            "HasRewardsCard": rand.choice([0, 1], size=num_samples, p=[0.5, 0.5]),
+            "HasSecuredCard": rand.choice([0, 1], size=num_samples, p=[0.5, 0.5]),
             "Transaction_Count": rand.randint(4, 5, size=num_samples),
             "Avg_Transaction_Value": rand.uniform(400, 500, size=num_samples),
             "EstimatedSalary": rand.uniform(140000, 150000, size=num_samples) #high
@@ -267,14 +270,18 @@ def get_customer_segmentation_data(num_samples=1000):
         {
             "Customer_ID": np.arange(1, num_samples + 1),
             "Age": rand.randint(40, 55, size=num_samples), #middle aged
-            "Gender": rand.choice(["M", "F"], size=num_samples, p=[0.1, 0.9]), #women
+            "Gender": rand.choice(["M", "F"], size=num_samples, p=[0.5, 0.5]), #women
             "CreditScore": rand.randint(800, 850, size=num_samples), #high credit score
             "Tenure": rand.randint(5, 7, size=num_samples), #mid-long tenure
             "Balance": rand.uniform(100000, 150000, size=num_samples), #middle range
             "NumOfProducts": rand.randint(1, 2, size=num_samples),
             "Education": rand.randint(4, 7, size=num_samples),
             # "Country": rand.choice(items, size=num_samples), #across all countries
-            "HasCrCard": rand.choice([0, 1], size=num_samples), 
+            "HasTravelCard": rand.choice([0, 1], size=num_samples, p=[0.5, 0.5]), # has cc
+            "HasCashBackCard": rand.choice([0, 1], size=num_samples, p=[0.5, 0.5]),
+            "HasPointsCard": rand.choice([0, 1], size=num_samples, p=[0.5, 0.5]),
+            "HasRewardsCard": rand.choice([0, 1], size=num_samples, p=[0.1, 0.9]),
+            "HasSecuredCard": rand.choice([0, 1], size=num_samples, p=[0.5, 0.5]),
             "Transaction_Count": rand.randint(4, 5, size=num_samples), #lots of transaction
             "Avg_Transaction_Value": rand.uniform(100, 300, size=num_samples),#middle range transactions
             "EstimatedSalary": rand.uniform(100000, 150000, size=num_samples) #middle range salary
@@ -292,7 +299,11 @@ def get_customer_segmentation_data(num_samples=1000):
             "NumOfProducts": rand.randint(1, 2, size=num_samples), #few
             "Education": rand.randint(1, 3, size=num_samples),
             # "Country": rand.choice(items, size=num_samples),#all
-            "HasCrCard": rand.choice([0, 1], size=num_samples, p=[0.9, 0.1]),#lower GDP countries
+            "HasTravelCard": rand.choice([0, 1], size=num_samples, p=[0.5, 0.5]), # has cc
+            "HasCashBackCard": rand.choice([0, 1], size=num_samples, p=[0.1, 0.9]),
+            "HasPointsCard": rand.choice([0, 1], size=num_samples, p=[0.5, 0.5]),
+            "HasRewardsCard": rand.choice([0, 1], size=num_samples, p=[0.5, 0.5]),
+            "HasSecuredCard": rand.choice([0, 1], size=num_samples, p=[0.5, 0.5]),
             "Transaction_Count": rand.randint(1, 2, size=num_samples), #few
             "Avg_Transaction_Value": rand.uniform(20, 50, size=num_samples), #low
             "EstimatedSalary": rand.uniform(20000, 50000, size=num_samples)
@@ -304,7 +315,7 @@ def get_customer_segmentation_data(num_samples=1000):
     return df
 
 
-def get_product_recommendation_data(num_samples=1000):
+def get_product_recommendation_data_collaborative(num_samples=1000):
     rand = np.random.RandomState(12345)
     users = np.arange(1, num_samples + 1)
     items = [
@@ -442,3 +453,30 @@ def get_product_recommendation_data(num_samples=1000):
     idx = df.sample(frac=0.25, random_state=12345).index
     df = df.drop(idx, inplace=False)
     return df
+
+
+def get_product_recommendation_data_content(num_samples=1000):
+
+    # Load Movies Metadata
+    metadata = pd.read_csv('output_data/movies_metadata.csv', low_memory=False)
+
+    metadata = metadata.drop([19730, 29503, 35587])
+
+    metadata.head()
+
+
+    # Load credits data
+    credits = pd.read_csv('output_data/credits.csv')
+
+    credits.head()
+
+
+
+    # Convert IDs to int. Required for merging
+    credits['id'] = credits['id'].astype('int')
+    metadata['id'] = metadata['id'].astype('int')
+
+    # Merge keywords and credits into your main metadata dataframe
+    metadata = metadata.merge(credits, on='id')
+
+    return metadata
