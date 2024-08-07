@@ -479,4 +479,73 @@ def get_product_recommendation_data_content(num_samples=1000):
     # Merge keywords and credits into your main metadata dataframe
     metadata = metadata.merge(credits, on='id')
 
-    return metadata
+    m = metadata['vote_count'].quantile(0.90)
+    C = metadata['vote_average'].mean()
+
+    # Parse the stringified features into their corresponding python objects
+    from ast import literal_eval
+
+    features = ['cast', 'crew', 'genres']
+    for feature in features:
+        metadata[feature] = metadata[feature].apply(literal_eval)
+
+    def get_director(x):
+        for i in x:
+            if i['job'] == 'Director':
+                return i['name']
+        return np.nan
+
+    def get_list(x):
+        if isinstance(x, list):
+            names = [i['name'] for i in x]
+            #Check if more than 3 elements exist. If yes, return only first three. If no, return entire list.
+            if len(names) > 3:
+                names = names[:3]
+            return names
+
+        #Return empty list in case of missing/malformed data
+        return []
+
+    # Define new director, cast, genres and keywords features that are in a suitable form.
+    metadata['director'] = metadata['crew'].apply(get_director)
+
+    features = ['cast', 'genres']
+    for feature in features:
+        metadata[feature] = metadata[feature].apply(get_list)
+
+    # Print the new features of the first 3 films
+    metadata[['title', 'cast', 'director',  'genres']].head(3)
+
+    # Function to convert all strings to lower case and strip names of spaces
+    def clean_data(x):
+        if isinstance(x, list):
+            return [str.lower(i.replace(" ", "")) for i in x]
+        else:
+            #Check if director exists. If not, return empty string
+            if isinstance(x, str):
+                return str.lower(x.replace(" ", ""))
+            else:
+                return ''
+
+    # Apply clean_data function to your features.
+    features = ['cast',  'director', 'genres']
+
+    for feature in features:
+        metadata[feature] = metadata[feature].apply(clean_data)
+
+    def create_soup(x):
+        return ' '.join(x['cast']) + ' ' + x['director'] + ' ' + ' '.join(x['genres'])
+
+    # Create a new soup feature
+    metadata['soup'] = metadata.apply(create_soup, axis=1)
+
+
+    metadata = metadata[metadata["vote_average"] > C]
+    metadata = metadata[metadata["vote_count"] > m]
+
+    q_movies = metadata.iloc[:1000,:]
+
+    # Print the first three rows
+    metadata.head(3)
+
+    return q_movies
