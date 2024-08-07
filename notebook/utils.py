@@ -253,7 +253,6 @@ def get_customer_segmentation_data(num_samples=1000):
             "CreditScore": rand.randint(750, 850, size=num_samples), #high credit score
             "Tenure": rand.randint(9, 10, size=num_samples), # long tenure
             "Balance": rand.uniform(190000, 200000, size=num_samples),#large
-            "NumOfProducts": rand.randint(5, 7, size=num_samples), # has multiple products
             "Education": rand.randint(6, 7, size=num_samples), #very educated
             "HasTravelCard": rand.choice([0, 1], size=num_samples, p=[0.1, 0.9]), # has cc
             "HasCashBackCard": rand.choice([0, 1], size=num_samples, p=[0.5, 0.5]),
@@ -274,7 +273,6 @@ def get_customer_segmentation_data(num_samples=1000):
             "CreditScore": rand.randint(800, 850, size=num_samples), #high credit score
             "Tenure": rand.randint(5, 7, size=num_samples), #mid-long tenure
             "Balance": rand.uniform(100000, 150000, size=num_samples), #middle range
-            "NumOfProducts": rand.randint(1, 2, size=num_samples),
             "Education": rand.randint(4, 7, size=num_samples),
             # "Country": rand.choice(items, size=num_samples), #across all countries
             "HasTravelCard": rand.choice([0, 1], size=num_samples, p=[0.5, 0.5]), # has cc
@@ -296,7 +294,6 @@ def get_customer_segmentation_data(num_samples=1000):
             "CreditScore": rand.randint(300, 400, size=num_samples), #low
             "Tenure": rand.randint(0, 2, size=num_samples), #short
             "Balance": rand.uniform(0, 10000, size=num_samples), #low
-            "NumOfProducts": rand.randint(1, 2, size=num_samples), #few
             "Education": rand.randint(1, 3, size=num_samples),
             # "Country": rand.choice(items, size=num_samples),#all
             "HasTravelCard": rand.choice([0, 1], size=num_samples, p=[0.5, 0.5]), # has cc
