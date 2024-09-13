@@ -1,0 +1,32 @@
+{
+    "input_data": [
+            {
+                    "fields": [
+                            "Age",
+                            "Gender",
+                            "Credit_Limit",
+                            "Transaction_Source_M_Count",
+                            "Transaction_Source_A_Count",
+                            "Transaction_Source_D_Count",
+                            "Transaction_Source_V_Count",
+                            "Transaction_Source_P_Count",
+                            "Transaction_Source_U_Count",
+                            "Avg_Transaction_Value",
+                            "Customer_Segment"
+                    ],
+                    "values": [[
+                        40, 
+                        "F", 
+                        70000, 
+                        1,
+                        1, 
+                        1, 
+                        1,
+                        1,
+                        1,
+                        300,
+                        1
+                    ]]
+            }
+    ]
+}

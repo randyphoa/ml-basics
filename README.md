@@ -12,34 +12,40 @@ Some examples of building Machine Learning models
 
 5. Customer Segmentation, grouping customers into distinct segments based on demographics and behaviors for profiling and understanding.
 
+# Data Sources
 
+- Product Propensity, Churn Prediction and CLTV prediction, Customer segmentation uses dummy data.
+- Product Recommendation uses the MovieLens dataset.
 
-Data Sources
+# Usage Instructions
 
-1. https://archive.ics.uci.edu/dataset/222/bank+marketing
+Before you begin:
+1. create a project and associate it with a WML instance.
+2. upload the data files in "data/datasets" into your project by clicking Import Assets > Local File > Data Asset.
+![alt text](image-2.png "Title")
+3. Then, upload the notebooks 4-product-recommendation-content-based.ipynb and 5-customer-segmentation.ipynb by clicking New Asset > Work with data and models in Python or R notebooks > local file.
+![alt text](image-3.png "Title")
+![alt text](image-4.png "Title")
+![alt text](image-5.png "Title")
 
-The data is related with direct marketing campaigns of a Portuguese banking institution. The marketing campaigns were based on phone calls. Often, more than one contact to the same client was required, in order to access if the product (bank term deposit) would be ('yes') or not ('no') subscribed. 
+## Product Propensity, Churn Prediction, CLTV Prediction
 
-There are four datasets: 
-1) bank-additional-full.csv with all examples (41188) and 20 inputs, ordered by date (from May 2008 to November 2010), very close to the data analyzed in [Moro et al., 2014]
-2) bank-additional.csv with 10% of the examples (4119), randomly selected from 1), and 20 inputs.
-3) bank-full.csv with all examples and 17 inputs, ordered by date (older version of this dataset with less inputs). 
-4) bank.csv with 10% of the examples and 17 inputs, randomly selected from 3 (older version of this dataset with less inputs). 
-The smallest datasets are provided to test more computationally demanding machine learning algorithms (e.g., SVM). 
+For these 3 use cases, we will use AutoAI.
+1. First, click New Asset > Build machine learning models automatically
+2. Provide a suitable name for your AutoAI and click "Create"
+![alt text](image-6.png "Title")
+3. Click "Select data from project" and select the relevant csv file
+![alt text](image-8.png "Title")
+![alt text](image-9.png "Title")
+4. Select "no" for "Create a time series analysis" and click "Create"
+![alt text](image-10.png "Title")
+5. Wait for the experiment to complete
+6. Click around the dashboard to see the various metrics that are recorded. 
 
-The classification goal is to predict if the client will subscribe (yes/no) a term deposit (variable y).
+For more information on AutoAI, as well additional customization that you can do, refer here: https://dataplatform.cloud.ibm.com/docs/content/wsj/analyze-data/autoai-overview.html?context=cpdaas
 
-2. https://archive.ics.uci.edu/dataset/352/online+retail
+## Product Recommendation
+Follow the instructions in the notebook
 
-This is a transnational data set which contains all the transactions occurring between 01/12/2010 and 09/12/2011 for a UK-based and registered non-store online retail.The company mainly sells unique all-occasion gifts. Many customers of the company are wholesalers.
-
-3. https://archive.ics.uci.edu/dataset/350/default+of+credit+card+clients
-
-This research aimed at the case of customers' default payments in Taiwan and compares the predictive accuracy of probability of default among six data mining methods. From the perspective of risk management, the result of predictive accuracy of the estimated probability of default will be more valuable than the binary result of classification - credible or not credible clients. Because the real probability of default is unknown, this study presented the novel Sorting Smoothing Method to estimate the real probability of default. With the real probability of default as the response variable (Y), and the predictive probability of default as the independent variable (X), the simple linear regression result (Y = A + BX) shows that the forecasting model produced by artificial neural network has the highest coefficient of determination; its regression intercept (A) is close to zero, and regression coefficient (B) to one. Therefore, among the six data mining techniques, artificial neural network is the only one that can accurately estimate the real probability of default.
-
-4. https://archive.ics.uci.edu/dataset/468/online+shoppers+purchasing+intention+dataset
-
-The dataset was formed so that each session
-would belong to a different user in a 1-year period to avoid
-any tendency to a specific campaign, special day, user
-profile, or period. 
+## Customer Segmentation
+Follow the instructions in the notebook
